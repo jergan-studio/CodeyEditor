@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <title>CodeyEditor</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./"><span class="brand-mark">C</span><span>CodeyEditor</span></a>
+    <span class="version">V0.1.0</span>
+    <div class="top-actions">
+      <button id="undo" class="tool-button" title="Undo (Ctrl+Z)">↶</button>
+      <button id="redo" class="tool-button" title="Redo (Ctrl+Y)">↷</button>
+      <span class="toolbar-divider"></span>
+      <button id="new-project" class="tool-button">New</button>
+      <button id="save-project" class="tool-button">Save JSON</button>
+      <button id="load-project" class="tool-button">Load JSON</button>
+      <button id="export-code" class="primary-button">Export</button>
+      <input id="file-input" type="file" accept=".json,application/json" hidden>
+    </div>
+  </header>
+
+  <main class="editor-layout">
+    <aside class="toolbox">
+      <div class="panel-heading">
+        <div><p class="eyebrow">LIBRARY</p><h1>Blocks</h1></div>
+      </div>
+      <label class="search-box"><span>⌕</span><input id="block-search" type="search" placeholder="Search blocks..."></label>
+      <nav id="categories" class="categories" aria-label="Block categories"></nav>
+      <div id="block-list" class="block-list"></div>
+      <p class="toolbox-hint">Drag a block into the workspace, or click it to add it.</p>
+    </aside>
+
+    <section class="workspace-panel">
+      <div class="workspace-heading">
+        <div><p class="eyebrow">WORKSPACE</p><h2>Untitled project</h2></div>
+        <div class="workspace-status"><span class="status-dot"></span><span id="block-count">0 blocks</span></div>
+      </div>
+      <div id="workspace" class="workspace" tabindex="0" aria-label="Block workspace">
+        <div id="empty-state" class="empty-state">
+          <div class="empty-icon">⌘</div>
+          <h3>Build something</h3>
+          <p>Drag blocks here or choose one from the library.</p>
+        </div>
+        <div id="block-stack" class="block-stack"></div>
+      </div>
+      <footer class="workspace-footer"><span>CODEY ENGINE</span><span>Drag · Connect · Create</span></footer>
+    </section>
+
+    <aside class="inspector">
+      <p class="eyebrow">PROPERTIES</p>
+      <h2>Block settings</h2>
+      <div id="inspector-content" class="inspector-content">
+        <div class="inspector-empty"><span>☷</span><p>Select a block to edit its properties.</p></div>
+      </div>
+      <div class="inspector-help"><strong>Keyboard shortcuts</strong><p><kbd>Ctrl</kbd> + <kbd>Z</kbd> Undo</p><p><kbd>Ctrl</kbd> + <kbd>Y</kbd> Redo</p><p><kbd>Delete</kbd> Remove selected</p></div>
+    </aside>
+  </main>
+  <dialog id="export-dialog" class="export-dialog">
+    <form method="dialog"><div class="dialog-head"><h2>Export project</h2><button class="tool-button" aria-label="Close">×</button></div><p class="dialog-description">Your block project as portable JSON.</p><textarea id="export-output" spellcheck="false"></textarea><div class="dialog-actions"><button id="copy-export" type="button" class="tool-button">Copy JSON</button><button class="primary-button">Done</button></div></form>
+  </dialog>
+  <script type="module" src="./demo.js"></script>
+</body>
+</html>
