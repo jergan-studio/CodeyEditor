@@ -75,7 +75,7 @@
 
 /* Editor tabs and costume painter */
 .editor-tabs{height:42px;display:flex;align-items:stretch;gap:5px;padding:0 18px;background:#111927;border-bottom:1px solid #263449}
-.editor-tab{position:relative;padding:0 17px;border:0;border-bottom:2px solid transparent;background:transparent;color:#94a3b8;font:600 12px inherit;cursor:pointer}
+.editor-tab{position:relative;padding:0 17px;border:0;border-bottom:2px solid transparent;background:transparent;color:#94a3b8;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer}
 .editor-tab:hover{color:#e8edf7;background:#1a2638}
 .editor-tab.active{color:#fff;border-bottom-color:#78a2ff;background:#1a2638}
 .editor-panel[hidden]{display:none!important}
