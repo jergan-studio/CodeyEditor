@@ -65,6 +65,108 @@ spriteDock.addEventListener("change", (event) => {
 });
 renderSprites();
 
+
+/* Editor tabs */
+document.querySelectorAll("[data-editor-tab]").forEach((tab) => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll("[data-editor-tab]").forEach((item) => item.classList.toggle("active", item === tab));
+    document.querySelectorAll("[data-editor-panel]").forEach((panel) => {
+      const active = panel.dataset.editorPanel === tab.dataset.editorTab;
+      panel.hidden = !active;
+      panel.classList.toggle("active", active);
+    });
+    if (tab.dataset.editorTab === "costumes") drawCurrentCostume();
+  });
+});
+
+/* Paint canvas */
+const costumeCanvas = document.querySelector("#costume-canvas");
+const paint = costumeCanvas.getContext("2d");
+let drawing = false;
+let drawTool = "pen";
+let lastPoint = null;
+function resetPaintCanvas() {
+  paint.clearRect(0, 0, costumeCanvas.width, costumeCanvas.height);
+  paint.fillStyle = "#ffffff";
+  paint.fillRect(0, 0, costumeCanvas.width, costumeCanvas.height);
+}
+function drawCurrentCostume() {
+  resetPaintCanvas();
+  const sprite = activeSprite();
+  if (!sprite || !sprite.image) return;
+  const image = new Image();
+  image.onload = () => {
+    paint.clearRect(0, 0, costumeCanvas.width, costumeCanvas.height);
+    const scale = Math.min(costumeCanvas.width / image.width, costumeCanvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    paint.drawImage(image, (costumeCanvas.width - width) / 2, (costumeCanvas.height - height) / 2, width, height);
+  };
+  image.src = sprite.image;
+}
+function canvasPoint(event) {
+  const rect = costumeCanvas.getBoundingClientRect();
+  return { x: (event.clientX - rect.left) * costumeCanvas.width / rect.width, y: (event.clientY - rect.top) * costumeCanvas.height / rect.height };
+}
+costumeCanvas.addEventListener("pointerdown", (event) => {
+  drawing = true;
+  lastPoint = canvasPoint(event);
+  costumeCanvas.setPointerCapture(event.pointerId);
+  paint.beginPath();
+  paint.arc(lastPoint.x, lastPoint.y, Number(document.querySelector("#brush-size").value) / 2, 0, Math.PI * 2);
+  paint.fillStyle = drawTool === "eraser" ? "#ffffff" : document.querySelector("#draw-color").value;
+  paint.fill();
+});
+costumeCanvas.addEventListener("pointermove", (event) => {
+  if (!drawing) return;
+  const point = canvasPoint(event);
+  paint.beginPath();
+  paint.moveTo(lastPoint.x, lastPoint.y);
+  paint.lineTo(point.x, point.y);
+  paint.lineCap = "round";
+  paint.lineJoin = "round";
+  paint.lineWidth = Number(document.querySelector("#brush-size").value);
+  paint.strokeStyle = drawTool === "eraser" ? "#ffffff" : document.querySelector("#draw-color").value;
+  paint.stroke();
+  lastPoint = point;
+});
+function stopDrawing() { drawing = false; lastPoint = null; }
+costumeCanvas.addEventListener("pointerup", stopDrawing);
+costumeCanvas.addEventListener("pointercancel", stopDrawing);
+document.querySelectorAll("[data-draw-tool]").forEach((button) => button.addEventListener("click", () => {
+  drawTool = button.dataset.drawTool;
+  document.querySelectorAll("[data-draw-tool]").forEach((item) => item.classList.toggle("active", item === button));
+}));
+document.querySelector("#clear-costume").addEventListener("click", resetPaintCanvas);
+document.querySelector("#save-costume").addEventListener("click", () => {
+  const sprite = activeSprite();
+  if (!sprite) return;
+  sprite.image = costumeCanvas.toDataURL("image/png");
+  sprite.emoji = "";
+  sprite.costumeName = document.querySelector("#costume-name").value || "costume1";
+  renderSprites();
+});
+document.querySelector("#costume-upload").addEventListener("change", (event) => {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  if (!file.type.startsWith("image/")) { alert("Choose an image file."); return; }
+  const reader = new FileReader();
+  reader.onload = () => {
+    const image = new Image();
+    image.onload = () => {
+      resetPaintCanvas();
+      const scale = Math.min(costumeCanvas.width / image.width, costumeCanvas.height / image.height);
+      const width = image.width * scale;
+      const height = image.height * scale;
+      paint.drawImage(image, (costumeCanvas.width - width) / 2, (costumeCanvas.height - height) / 2, width, height);
+    };
+    image.src = String(reader.result);
+  };
+  reader.readAsDataURL(file);
+  event.target.value = "";
+});
+resetPaintCanvas();
+
 document.querySelector("#undo").addEventListener("click", () => editor.undo());
 document.querySelector("#redo").addEventListener("click", () => editor.redo());
 document.querySelector("#new-project").addEventListener("click", () => {
