@@ -71,3 +71,42 @@
 .sprite-name input{width:min(220px,45vw);padding:5px 8px;border:1px solid #344258;border-radius:6px;background:#172235;color:#edf3fc;font:inherit}
 .codey-app{height:calc(100vh - 190px)}
 @media(max-width:600px){.sprite-dock{height:116px;padding:8px;gap:8px}.sprite-stage{flex-basis:90px}.sprite-stage-art span{font-size:34px}.sprite-stage-art img{max-width:55px;max-height:55px}.sprite-actions .tool-button{font-size:9px;padding:5px}.codey-app{height:calc(100vh - 184px)}}
+
+
+/* Editor tabs and costume painter */
+.editor-tabs{height:42px;display:flex;align-items:stretch;gap:5px;padding:0 18px;background:#111927;border-bottom:1px solid #263449}
+.editor-tab{position:relative;padding:0 17px;border:0;border-bottom:2px solid transparent;background:transparent;color:#94a3b8;font:600 12px inherit;cursor:pointer}
+.editor-tab:hover{color:#e8edf7;background:#1a2638}
+.editor-tab.active{color:#fff;border-bottom-color:#78a2ff;background:#1a2638}
+.editor-panel[hidden]{display:none!important}
+.codey-app{height:calc(100vh - 232px);min-height:360px}
+.costume-panel{height:calc(100vh - 232px);min-height:360px;display:grid;grid-template-columns:220px minmax(0,1fr);background:#0d1420;color:#e8edf7}
+.costume-sidebar{padding:20px 16px;background:#111927;border-right:1px solid #263449;overflow:auto}
+.costume-sidebar h3{margin:0 0 6px;font-size:15px}
+.costume-sidebar p,.costume-canvas-area p{color:#8493a9;font-size:11px;line-height:1.5}
+.costume-name,.costume-color,.costume-size{display:flex;flex-direction:column;gap:7px;margin:17px 0;color:#aebbd0;font-size:11px}
+.costume-name input{padding:8px;border:1px solid #344258;border-radius:7px;background:#172235;color:#edf3fc}
+.costume-color input{width:100%;height:36px;border:1px solid #344258;border-radius:7px;background:#172235}
+.costume-size input{width:100%}
+.costume-tools{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:18px 0}
+.costume-tools .tool-button{font-size:10px;padding:8px 6px}
+.costume-tools .active{border-color:#7fa7ff;background:#263c60}
+.costume-upload{display:block;text-align:center;font-size:11px}
+.costume-canvas-area{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px;overflow:auto}
+.costume-canvas-wrap{padding:12px;border:1px solid #344258;border-radius:12px;background-color:#182337;background-image:linear-gradient(45deg,#24334a 25%,transparent 25%),linear-gradient(-45deg,#24334a 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#24334a 75%),linear-gradient(-45deg,transparent 75%,#24334a 75%);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0}
+#costume-canvas{display:block;width:min(480px,65vw);height:auto;aspect-ratio:4/3;background:#fff;touch-action:none;cursor:crosshair}
+.sounds-panel{height:calc(100vh - 232px);padding:28px;background:#0d1420;color:#e8edf7}
+.sounds-panel h2{font-size:17px}
+.sounds-panel p{color:#8493a9;font-size:12px}
+/* The bottom tab must overlap the next block's top notch; this removes the visible seam. */
+.codey-block+.codey-block{margin-top:-8px}
+.codey-stack{gap:0}
+@media(max-width:700px){
+  .editor-tabs{padding:0 7px}
+  .editor-tab{padding:0 10px;font-size:11px}
+  .codey-app,.costume-panel,.sounds-panel{height:calc(100vh - 226px)}
+  .costume-panel{grid-template-columns:145px minmax(0,1fr)}
+  .costume-sidebar{padding:12px 8px}
+  .costume-tools{grid-template-columns:1fr}
+  #costume-canvas{width:min(70vw,400px)}
+}
