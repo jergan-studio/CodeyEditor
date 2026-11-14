@@ -23,7 +23,35 @@
     </div>
   </header>
   <section id="sprite-dock" class="sprite-dock"></section>
-  <main id="codey-app" class="codey-app"></main>
+  <nav class="editor-tabs" aria-label="Editor tabs">
+    <button class="editor-tab active" data-editor-tab="code">▦ Code</button>
+    <button class="editor-tab" data-editor-tab="costumes">🎨 Costumes</button>
+    <button class="editor-tab" data-editor-tab="sounds">♫ Sounds</button>
+  </nav>
+  <main id="codey-app" class="codey-app editor-panel active" data-editor-panel="code"></main>
+  <section id="costume-panel" class="editor-panel costume-panel" data-editor-panel="costumes" hidden>
+    <aside class="costume-sidebar">
+      <h3>Costumes</h3>
+      <p>Draw a costume for the selected sprite.</p>
+      <label class="costume-name">Costume name<input id="costume-name" value="costume1"></label>
+      <label class="costume-color">Color<input id="draw-color" type="color" value="#ff6685"></label>
+      <label class="costume-size">Brush size <input id="brush-size" type="range" min="1" max="48" value="8"></label>
+      <div class="costume-tools">
+        <button class="tool-button active" data-draw-tool="pen">✎ Pen</button>
+        <button class="tool-button" data-draw-tool="eraser">⌫ Eraser</button>
+        <button class="tool-button" id="clear-costume">Clear</button>
+        <button class="tool-button" id="save-costume">Apply costume</button>
+      </div>
+      <label class="tool-button costume-upload">Import image<input id="costume-upload" type="file" accept="image/*" hidden></label>
+    </aside>
+    <div class="costume-canvas-area">
+      <div class="costume-canvas-wrap"><canvas id="costume-canvas" width="480" height="360"></canvas></div>
+      <p>Draw with your mouse or touch. Apply costume to update the sprite.</p>
+    </div>
+  </section>
+  <section id="sounds-panel" class="editor-panel sounds-panel" data-editor-panel="sounds" hidden>
+    <h2>Sounds</h2><p>Sound editing is coming soon.</p>
+  </section>
   <dialog id="export-dialog" class="export-dialog">
     <form method="dialog">
       <div class="dialog-head"><h2>Generated JavaScript</h2><button class="tool-button" aria-label="Close">×</button></div>
