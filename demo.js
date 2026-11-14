@@ -1,20 +1,12 @@
 import { CodeyEditor } from "./src/CodeyEditor.js";
 
 const editor = new CodeyEditor({
-  root: "#codey-mount",
+  root: "#codey-app",
   onChange(project) {
-    document.querySelector("#block-count").textContent = `${project.blocks.length} block${project.blocks.length === 1 ? "" : "s"}`;
-    document.querySelector("#empty-state").hidden = project.blocks.length > 0;
+    const count = document.querySelector("#block-count");
+    if (count) count.textContent = `${project.blocks.length} block${project.blocks.length === 1 ? "" : "s"}`;
   }
 });
-
-// Mount the reusable engine into the demo's workspace area.
-const mount = document.createElement("div");
-mount.id = "codey-mount";
-mount.className = "engine-mount";
-const workspace = document.querySelector("#workspace");
-workspace.replaceWith(mount);
-editor.root.classList.add("demo-engine");
 
 document.querySelector("#undo").addEventListener("click", () => editor.undo());
 document.querySelector("#redo").addEventListener("click", () => editor.redo());
