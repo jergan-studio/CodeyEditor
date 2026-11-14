@@ -47,3 +47,27 @@
 @media(max-width:600px) {
   .codey-block { min-height: 48px; padding: 12px 26px 12px 20px; }
 }
+
+
+/* Sprite dock */
+.sprite-dock{height:122px;display:flex;align-items:stretch;gap:14px;padding:10px 16px;background:#101827;border-bottom:1px solid #263449;overflow:hidden}
+.sprite-stage{position:relative;display:flex;align-items:center;justify-content:center;flex:0 0 150px;border:1px solid #34445d;border-radius:10px;background-color:#0b1422;background-image:radial-gradient(#29364a 1px,transparent 1px);background-size:14px 14px}
+.sprite-stage-title{position:absolute;left:9px;top:7px;color:#8292aa;font-size:9px;font-weight:800;letter-spacing:1px}
+.sprite-stage-art{display:grid;place-items:center;width:100%;height:100%;padding:18px 8px 5px}
+.sprite-stage-art img{max-width:76px;max-height:76px;object-fit:contain}
+.sprite-stage-art span{font-size:48px;line-height:1}
+.sprite-tools{display:flex;flex-direction:column;justify-content:center;gap:7px;min-width:0;flex:1}
+.sprite-heading{color:#8292aa;font-size:9px;font-weight:800;letter-spacing:1px}
+.sprite-list{display:flex;align-items:center;gap:7px;overflow-x:auto;min-height:48px}
+.sprite-card{display:flex;flex:0 0 62px;flex-direction:column;align-items:center;justify-content:center;gap:2px;height:48px;border:1px solid #344258;border-radius:8px;background:#172235;color:#e8edf7;cursor:pointer}
+.sprite-card.active{border-color:#7fa7ff;background:#233a5d;box-shadow:0 0 0 1px #7fa7ff55}
+.sprite-card img{width:25px;height:25px;object-fit:contain}
+.sprite-card span{font-size:23px;line-height:25px}
+.sprite-card small{max-width:58px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:8px;color:#aebbd0}
+.sprite-actions{display:flex;gap:6px;align-items:center}
+.sprite-actions .tool-button{padding:5px 8px;font-size:10px}
+.sprite-actions button:disabled{opacity:.4;cursor:not-allowed}
+.sprite-name{display:flex;align-items:center;gap:8px;color:#8292aa;font-size:10px}
+.sprite-name input{width:min(220px,45vw);padding:5px 8px;border:1px solid #344258;border-radius:6px;background:#172235;color:#edf3fc;font:inherit}
+.codey-app{height:calc(100vh - 190px)}
+@media(max-width:600px){.sprite-dock{height:116px;padding:8px;gap:8px}.sprite-stage{flex-basis:90px}.sprite-stage-art span{font-size:34px}.sprite-stage-art img{max-width:55px;max-height:55px}.sprite-actions .tool-button{font-size:9px;padding:5px}.codey-app{height:calc(100vh - 184px)}}
