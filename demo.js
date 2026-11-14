@@ -34,6 +34,7 @@ spriteDock.addEventListener("click", (event) => {
     activeSpriteId = card.dataset.sprite;
     editor.loadProject({ format: "codey-project", version: 1, blocks: activeSprite().blocks });
     renderSprites();
+    if (!document.querySelector('[data-editor-panel="costumes"]').hidden) drawCurrentCostume();
   }
   if (event.target.closest("#add-sprite")) {
     saveActiveSprite();
@@ -59,7 +60,7 @@ spriteDock.addEventListener("change", (event) => {
     const file = event.target.files?.[0]; if (!file) return;
     if (!file.type.startsWith("image/")) { alert("Choose an image file."); return; }
     const reader = new FileReader();
-    reader.onload = () => { const sprite = activeSprite(); sprite.image = String(reader.result); sprite.emoji = ""; renderSprites(); };
+    reader.onload = () => { const sprite = activeSprite(); sprite.image = String(reader.result); sprite.emoji = ""; renderSprites(); if (!document.querySelector('[data-editor-panel="costumes"]').hidden) drawCurrentCostume(); };
     reader.readAsDataURL(file); event.target.value = "";
   }
 });
